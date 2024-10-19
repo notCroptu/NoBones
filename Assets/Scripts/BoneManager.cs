@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BoneManager : MonoBehaviour
 {
 
     private bool _corrupted = false;
     private Animator _animator;
+    private bool _touched = false;
+    public bool IsTouched() => _touched;
     
     void Start()
     {
@@ -27,11 +31,18 @@ public class BoneManager : MonoBehaviour
 
     public void Touched()
     {
+        if (_touched) return;
+        _touched = true;
         if (_corrupted)
         {
             // DO BAD  STUFF, MAUAHAHHAHAHAH
         }
         _animator.SetBool("collected", true);
+        StartCoroutine(DestroyBoneCauseIcan());
     }
     
+    public IEnumerator DestroyBoneCauseIcan() {
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
+    }
 }
