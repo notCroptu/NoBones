@@ -6,13 +6,15 @@ public class Movement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float maxHoldTime = 2f;
-    [SerializeField] private float maxJumpTime;
-    [SerializeField] private float jumpAngle = -30f;
+    [SerializeField] private float minjumpForce;
+    [SerializeField] private float maxjumpForce;
+    private float differenceJumpForce;
+    private float differenceHorizontal;
+    //how much time it takes to reach the maximum jumpforce
+    [SerializeField] private float maxHoldTime = 1f;
+    [SerializeField] private float jumpAngle = 30f;
     [SerializeField] private CapsuleCollider2D groundCheckCollider;
     [SerializeField] private LayerMask groundLayers;
-    private bool isGrounded = false;
     private Vector3 currentVelocity;
     private float horizontal = 0f;
     private float delta1 = 0f;
@@ -24,15 +26,19 @@ public class Movement : MonoBehaviour
     private int jumpNum2 = 0;
     void Start()
     {
+        float minHoriz;
+        horizontal = maxjumpForce / Mathf.Tan(jumpAngle);
+        minHoriz = minjumpForce / Mathf.Tan(jumpAngle);
+        differenceHorizontal = horizontal - minHoriz;
+        horizontal -= differenceHorizontal;
+        differenceJumpForce = maxjumpForce - minjumpForce;
+        maxjumpForce -= differenceJumpForce;
         rb = GetComponent<Rigidbody2D>();
         jumpAngle = jumpAngle * Mathf.Deg2Rad;
-        horizontal = jumpForce / Mathf.Tan(jumpAngle);
     }
     void Update()
     {
         UpdateGroundState();
-
-        if (isGrounded)
 
         if (Input.GetKeyDown(KeyCode.A))
             jumpNum1 ++;
@@ -42,6 +48,7 @@ public class Movement : MonoBehaviour
 
         if (jumpNum1 <= jumpNum)
         {
+            Debug.Log($"jumpNum1: {jumpNum1}");
             if (Input.GetKey(KeyCode.A))
                 delta1 += Time.deltaTime;
 
@@ -52,6 +59,7 @@ public class Movement : MonoBehaviour
 
         if (jumpNum2 <= jumpNum)
         {
+            Debug.Log($"jumpNum2: {jumpNum2}");
             if (Input.GetKey(KeyCode.RightArrow))
                 delta2 += Time.deltaTime;
 
@@ -69,8 +77,8 @@ public class Movement : MonoBehaviour
             Debug.Log("l jump");
             // make it an angle bitch
             Mathf.Clamp(delta1, 0f, maxHoldTime);
-            currentVelocity.x = -(horizontal * delta1 / maxHoldTime);
-            currentVelocity.y = jumpForce * delta1 / maxHoldTime;
+            currentVelocity.x = -((horizontal * delta1 / maxHoldTime) + differenceHorizontal);
+            currentVelocity.y = (maxjumpForce * delta1 / maxHoldTime) + differenceJumpForce;
             delta1 = 0f;
             jump1 = false;
             //impulse = new Vector3(-horizontal, jumpForce, 0f);
@@ -81,8 +89,8 @@ public class Movement : MonoBehaviour
         {
             Debug.Log("r jump");
             Mathf.Clamp(delta1, 0f, maxHoldTime);
-            currentVelocity.x = horizontal * delta2 / maxHoldTime;
-            currentVelocity.y = jumpForce * delta2 / maxHoldTime;
+            currentVelocity.x = (horizontal * delta2 / maxHoldTime) + differenceHorizontal;
+            currentVelocity.y = (maxjumpForce * delta2 / maxHoldTime) + differenceJumpForce;
             delta2 = 0f;
             jump2 = false;
             //impulse = new Vector3(horizontal, jumpForce, 0f);
@@ -106,12 +114,6 @@ public class Movement : MonoBehaviour
             {
                 jumpNum1 = 0;
                 jumpNum2 = 0;
-                isGrounded = true;
-                return;
-            }
-            else
-            {
-                isGrounded = false;
             }
         }
     }
