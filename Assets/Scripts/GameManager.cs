@@ -1,6 +1,10 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +20,16 @@ public class GameManager : MonoBehaviour
     private float _maxJumpForceTime = 1.0f;
     private RectTransform _leftJumpBar;
     private RectTransform _rightJumpBar;
+    
+
+    [SerializeField] private VideoPlayer vp;
+    [SerializeField] private SoundScript ss;
+
+
+    [SerializeField] private GameObject player;
+    private Scene currentScene;
+    [SerializeField] private Sounds sounds;
+    [SerializeField] private SoundScript audioPlayer;
     
     void Start()
     {
@@ -39,6 +53,10 @@ public class GameManager : MonoBehaviour
             GameObject boneOb = Instantiate(boneObj, loc, Quaternion.identity);
             boneOb.transform.SetParent(null);
         }
+        currentScene = SceneManager.GetActiveScene();
+
+        audioPlayer = GetComponent<SoundScript>();
+        sounds = GetComponent<Sounds>();
     }
 
     public void UpdateLeftJumpBar(float force = 0f)
@@ -57,8 +75,29 @@ public class GameManager : MonoBehaviour
     public void TakeDamage()
     {
         _lives--;
+
+        Blink();
+        
+        if (_lives == 1) StartCoroutine(VaisApanhar());
+        else if (_lives == 0) StartCoroutine(DesligarANet());
+
         UpdateHealthPanel();
         UpdateScoreText();
+
+        if (_lives == 2) StartCoroutine(GameOver());
+    }
+    private IEnumerator Blink()
+    {
+        WaitForSeconds ws = new WaitForSeconds(0.5f);
+        SpriteRenderer sp = player.GetComponent<SpriteRenderer>();
+
+        for (int i = 0; i <= 3; i++ )
+        {
+            sp.enabled = false;
+            yield return ws;
+            sp.enabled = true;
+            yield return ws;
+        }
     }
 
     private void UpdateScoreBar()
@@ -95,5 +134,30 @@ public class GameManager : MonoBehaviour
     private void UpdateScoreText()
     {
         _tmpScore.text = $"Score: {_score.ToString()}";
+    }
+
+    private IEnumerator GameOver()
+    {
+        audioPlayer.PlayAudio(sounds.Die);
+
+        vp.gameObject.SetActive(true);
+        vp.Stop();
+        vp.Play();
+        while (vp.isPlaying)
+        {
+            yield return null;
+        }
+        vp.gameObject.SetActive(false);
+        SceneManager.LoadScene(currentScene.name);
+    }
+    public IEnumerator DesligarANet()
+    {
+        audioPlayer.PlayAudio(sounds.Net);
+        yield return null;
+    }
+    public IEnumerator VaisApanhar()
+    {
+        audioPlayer.PlayAudio(sounds.Vassoura);
+        yield return null;
     }
 }
