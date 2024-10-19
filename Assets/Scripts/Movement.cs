@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float maxJumpTime;
+    [SerializeField] private float sideForce;
+    private Vector3 currentVelocity;
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        currentVelocity = rb.velocity;
+
+        if (Input.GetButtonDown("leftJump"))
+        {
+            // make it an angle bitch
+            currentVelocity.x -= sideForce;
+            currentVelocity.y = jumpForce;
+        }
+
+        if (Input.GetButtonDown("rightJump"))
+        {
+            currentVelocity.x += sideForce;
+            currentVelocity.y = jumpForce;
+        }
+
+        rb.velocity = currentVelocity;
     }
 }
