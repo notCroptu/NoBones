@@ -9,7 +9,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float maxJumpTime;
     [SerializeField] private float jumpAngle = -30f;
-    private Vector3 currentVelocity;
+    [SerializeField] private CircleCollider2D groundcheckcollider;
+    [SerializeField] private LayerMask groundLayers;
+    private Vector3 Impulse;
     private float horizontal = 0f;
     void Start()
     {
@@ -18,7 +20,7 @@ public class Movement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        currentVelocity = rb.velocity;
+        //currentVelocity = rb.velocity;
         Vector3 impulse;
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -28,8 +30,8 @@ public class Movement : MonoBehaviour
         {
             Debug.Log("l jumo");
             // make it an angle bitch
-            currentVelocity.x -= horizontal;
-            currentVelocity.y = jumpForce;
+            //currentVelocity.x -= horizontal;
+            //currentVelocity.y = jumpForce;
             impulse = new Vector3(-horizontal, jumpForce, 0f);
             rb.AddForce(impulse, ForceMode2D.Impulse);
         }
@@ -37,8 +39,8 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             Debug.Log("r jump");
-            currentVelocity.x += horizontal;
-            currentVelocity.y = jumpForce;
+            //currentVelocity.x += horizontal;
+            //currentVelocity.y = jumpForce;
             impulse = new Vector3(horizontal, jumpForce, 0f);
             rb.AddForce(impulse, ForceMode2D.Impulse);
         }
