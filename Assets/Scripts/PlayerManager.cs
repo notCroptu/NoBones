@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
     
     private GameManager _gameManager;
-    [SerializeField] private GameObject _effectCollect;
+    [SerializeField] private GameObject effectCollect;
     
     void Start()
     {
@@ -21,6 +21,6 @@ public class PlayerManager : MonoBehaviour
         if (boneManager.IsTouched()) return;
         boneManager.Touched();
         _gameManager.AddScore();
-        Instantiate(_effectCollect, other.transform.position, other.transform.rotation);
+        Instantiate(effectCollect, other.transform.position, other.transform.rotation);
     }
 }
