@@ -81,6 +81,7 @@ public class Movement : MonoBehaviour
             currentVelocity.y = (maxjumpForce * delta1 / maxHoldTime) + differenceJumpForce;
             delta1 = 0f;
             jump1 = false;
+            rb.AddTorque(-Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
             //impulse = new Vector3(-horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
@@ -93,6 +94,7 @@ public class Movement : MonoBehaviour
             currentVelocity.y = (maxjumpForce * delta2 / maxHoldTime) + differenceJumpForce;
             delta2 = 0f;
             jump2 = false;
+            rb.AddTorque(Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
             //impulse = new Vector3(horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
