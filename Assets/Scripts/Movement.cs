@@ -24,8 +24,11 @@ public class Movement : MonoBehaviour
     [SerializeField] private int jumpNum = 3;
     private int jumpNum1 = 0;
     private int jumpNum2 = 0;
+    private GameManager _gameManager;
+    
     void Start()
     {
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         float minHoriz;
         horizontal = maxjumpForce / Mathf.Tan(jumpAngle);
         minHoriz = minjumpForce / Mathf.Tan(jumpAngle);
@@ -48,10 +51,11 @@ public class Movement : MonoBehaviour
 
         if (jumpNum1 <= jumpNum)
         {
-            Debug.Log($"jumpNum1: {jumpNum1}");
-            if (Input.GetKey(KeyCode.A))
+            //Debug.Log($"jumpNum1: {jumpNum1}");
+            if (Input.GetKey(KeyCode.A) && delta1 < maxHoldTime) {
                 delta1 += Time.deltaTime;
-
+                _gameManager.UpdateLeftJumpBar(delta1);
+            }
             if (Input.GetKeyUp(KeyCode.A))
                 jump1 = true;
         }
@@ -59,9 +63,11 @@ public class Movement : MonoBehaviour
 
         if (jumpNum2 <= jumpNum)
         {
-            Debug.Log($"jumpNum2: {jumpNum2}");
-            if (Input.GetKey(KeyCode.RightArrow))
+            //Debug.Log($"jumpNum2: {jumpNum2}");
+            if (Input.GetKey(KeyCode.RightArrow) && delta2 < maxHoldTime) {
                 delta2 += Time.deltaTime;
+                _gameManager.UpdateRightJumpBar(delta2);
+            }
 
             if (Input.GetKeyUp(KeyCode.RightArrow))
                 jump2 = true;
@@ -74,27 +80,29 @@ public class Movement : MonoBehaviour
 
         if (jump1)
         {
-            Debug.Log("l jump");
+            //Debug.Log("l jump");
             // make it an angle bitch
-            Mathf.Clamp(delta1, 0f, maxHoldTime);
+            delta1 = Mathf.Clamp(delta1, 0f, maxHoldTime);
             currentVelocity.x = -((horizontal * delta1 / maxHoldTime) + differenceHorizontal);
             currentVelocity.y = (maxjumpForce * delta1 / maxHoldTime) + differenceJumpForce;
             delta1 = 0f;
             jump1 = false;
             rb.AddTorque(-Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
+            _gameManager.UpdateLeftJumpBar(delta2);
             //impulse = new Vector3(-horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
 
         if (jump2)
         {
-            Debug.Log("r jump");
-            Mathf.Clamp(delta1, 0f, maxHoldTime);
+            //Debug.Log("r jump");
+            delta2 = Mathf.Clamp(delta2, 0f, maxHoldTime);
             currentVelocity.x = (horizontal * delta2 / maxHoldTime) + differenceHorizontal;
             currentVelocity.y = (maxjumpForce * delta2 / maxHoldTime) + differenceJumpForce;
             delta2 = 0f;
             jump2 = false;
             rb.AddTorque(Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
+            _gameManager.UpdateRightJumpBar(delta2);
             //impulse = new Vector3(horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
