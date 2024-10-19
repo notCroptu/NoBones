@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7473976997176336121}
   - component: {fileID: 3629355260262817839}
   - component: {fileID: 7710888336724417177}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 2852567085198238847}
   - component: {fileID: 945048529932263750}
   - component: {fileID: 1677618115571975107}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Walls/Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
