@@ -16,8 +16,8 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Bone")) return;
-        BoneManager boneManager = other.gameObject.GetComponent<BoneManager>();
+        if (!other.CompareTag("PickUp")) return;
+        BoneManager boneManager = other.gameObject.GetComponentInParent<BoneManager>();
         if (boneManager.IsTouched()) return;
         boneManager.Touched();
         _gameManager.AddScore();

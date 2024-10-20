@@ -8,20 +8,24 @@ public class BoneManager : MonoBehaviour
 {
 
     private bool _corrupted = false;
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
     private bool _touched = false;
     public bool IsTouched() => _touched;
     private GameManager _gameManager;
+    private bool inRange = false;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite corruptSprite;
+    [SerializeField] Sprite normalSprite;
     
     void Start()
     {
         _gameManager = GameObject.FindObjectOfType(typeof(GameManager)) as GameManager;
+
+        spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         
-        _animator = transform.Find("Sprite").GetComponent<Animator>();
-        if (Random.Range(0, 5) == 0)
+        if (Random.Range(0, 1) == 0)
         {
             _corrupted = true;
-            SpriteRenderer spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = Resources.Load<Sprite>("SkeletonHeadSideView");
             // if corrupted
             // update sprite to corrupted bone sprite
@@ -44,19 +48,44 @@ public class BoneManager : MonoBehaviour
         _animator.SetBool("collected", true);
         StartCoroutine(DestroyBoneCauseIcan());
     }
-    private void OnTriggerEnter2D()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_corrupted)
+        if (other.CompareTag("Detect"))
         {
-
+            if (_corrupted)
+            {
+                _animator.SetTrigger("Corrupt");
+                inRange = true;
+            }
         }
     }
-    private void OnTriggerExit2D()
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (_corrupted)
+        if (other.CompareTag("Detect"))
         {
-            
+            if (_corrupted)
+            {
+                inRange = true;
+            }
         }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Detect"))
+        {
+            if (_corrupted)
+            {
+                _animator.SetTrigger("Uncorrupt");
+                inRange = false;
+            }
+        }
+    }
+    public void CheckCorrectIdleSprite()
+    {
+        if (inRange)
+            spriteRenderer.sprite = corruptSprite;
+        else if (_corrupted)
+            spriteRenderer.sprite = normalSprite;
     }
     
     public IEnumerator DestroyBoneCauseIcan() {

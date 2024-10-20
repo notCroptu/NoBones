@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bone
+  - PickUp
+  - Detect
   layers:
   - Default
   - TransparentFX
@@ -12,10 +14,10 @@ TagManager:
   - Player
   - Water
   - UI
+  - Bone
   - 
-  - 
-  - 
-  - 
+  - Detect
+  - PickUp
   - Ground
   - 
   - 
