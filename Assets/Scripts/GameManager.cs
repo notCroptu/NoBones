@@ -46,17 +46,20 @@ public class GameManager : MonoBehaviour
         UpdateLeftJumpBar();
         UpdateRightJumpBar();
 
-        int counter = 0;
 
-        foreach (Transform child in GameObject.Find("Bones").transform)
+        if (boneObj != null)
         {
-            Vector3 loc = child.transform.position;
-            Destroy(child.gameObject);
-            GameObject boneOb = Instantiate(boneObj, loc, Quaternion.identity);
-            boneOb.name = $"BoneOb{counter}";
-            boneOb.transform.SetParent(null);
+            int counter = 0;
+            foreach (Transform child in GameObject.Find("Bones").transform)
+            {
+                Vector3 loc = child.transform.position;
+                Destroy(child.gameObject);
+                GameObject boneOb = Instantiate(boneObj, loc, Quaternion.identity);
+                boneOb.name = $"BoneOb{counter}";
+                boneOb.transform.SetParent(null);
 
-            counter ++;
+                counter ++;
+            }
         }
         currentScene = SceneManager.GetActiveScene();
 

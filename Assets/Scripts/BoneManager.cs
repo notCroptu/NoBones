@@ -13,27 +13,21 @@ public class BoneManager : MonoBehaviour
     public bool IsTouched() => _touched;
     private GameManager _gameManager;
     private bool inRange = false;
-    private SpriteRenderer spriteRenderer;
-    [SerializeField] Sprite corruptSprite;
-    [SerializeField] Sprite normalSprite;
+    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _spriteCorruptedRenderer;
+    private bool _found = false;
+    public bool HasBeenFound() => _found;
+    [SerializeField] private Sprite[] sprites;
     
     void Start()
     {
         _gameManager = GameObject.FindObjectOfType(typeof(GameManager)) as GameManager;
 
-        spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+        _spriteRenderer = transform.Find("SpriteObj").GetComponent<SpriteRenderer>();
+        _spriteCorruptedRenderer = _spriteRenderer.transform.Find("CorruptedObj").GetComponent<SpriteRenderer>();
+        _spriteCorruptedRenderer.enabled = false;
         
-        if (Random.Range(0, 1) == 0)
-        {
-            _corrupted = true;
-            spriteRenderer.sprite = Resources.Load<Sprite>("SkeletonHeadSideView");
-            // if corrupted
-            // update sprite to corrupted bone sprite
-            
-            // corrupted = purple/pink glow
-            // default = white glow
-        }
-        
+        if (Random.Range(0, 6) == 0) _corrupted = true;
     }
 
     public void Touched()
@@ -48,44 +42,26 @@ public class BoneManager : MonoBehaviour
         _animator.SetBool("collected", true);
         StartCoroutine(DestroyBoneCauseIcan());
     }
-    private void OnTriggerEnter2D(Collider2D other)
+
+    public void Detected()
     {
-        if (other.CompareTag("Detect"))
-        {
-            if (_corrupted)
-            {
-                _animator.SetTrigger("Corrupt");
-                inRange = true;
-            }
-        }
+        _found = true;
+        if (!_corrupted) return;
+        _spriteRenderer.enabled = false;
+        _spriteCorruptedRenderer.enabled = true;
+        StartCoroutine(ChangeBone());
     }
-    private void OnTriggerStay2D(Collider2D other)
+
+    private IEnumerator ChangeBone()
     {
-        if (other.CompareTag("Detect"))
+        int count = 0;
+        while (true)
         {
-            if (_corrupted)
-            {
-                inRange = true;
-            }
+            _spriteCorruptedRenderer.sprite = sprites[count];
+            count++;
+            if (count >= sprites.Length) break;
+            yield return new WaitForSeconds(0.1f);
         }
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Detect"))
-        {
-            if (_corrupted)
-            {
-                _animator.SetTrigger("Uncorrupt");
-                inRange = false;
-            }
-        }
-    }
-    public void CheckCorrectIdleSprite()
-    {
-        if (inRange)
-            spriteRenderer.sprite = corruptSprite;
-        else if (_corrupted)
-            spriteRenderer.sprite = normalSprite;
     }
     
     public IEnumerator DestroyBoneCauseIcan() {
