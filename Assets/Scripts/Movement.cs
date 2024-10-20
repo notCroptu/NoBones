@@ -32,6 +32,7 @@ public class Movement : MonoBehaviour
     
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
         jumpAngle = jumpAngle * Mathf.Deg2Rad;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         float minHoriz;
