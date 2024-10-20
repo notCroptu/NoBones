@@ -61,8 +61,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-            StartCoroutine(GameOver());
+        //if (Input.GetKeyDown(KeyCode.K))
+        //    StartCoroutine(GameOver());
     }
     public void UpdateLeftJumpBar(float force = 0f)
     {
@@ -81,29 +81,28 @@ public class GameManager : MonoBehaviour
     {
         _lives--;
 
-        Blink();
+        StartCoroutine(Blink());
         audioPlayer.PlayAudio(sounds.Die);
         
         if (_lives == 1) StartCoroutine(VaisApanhar());
-        else if (_lives == 0) StartCoroutine(DesligarANet());
+        else if (_lives == 2) StartCoroutine(DesligarANet());
 
         UpdateHealthPanel();
         UpdateScoreText();
 
-        if (_lives == 2) StartCoroutine(GameOver());
+        if (_lives == 0) StartCoroutine(GameOver());
     }
     private IEnumerator Blink()
     {
-        WaitForSeconds ws = new WaitForSeconds(0.5f);
+        WaitForSeconds ws = new WaitForSeconds(0.2f);
         SpriteRenderer sp = player.GetComponent<SpriteRenderer>();
 
-        for (int i = 0; i <= 3; i++ )
+        for (int i = 0; i <= 6; i++ )
         {
-            sp.enabled = false;
-            yield return ws;
-            sp.enabled = true;
+            sp.enabled = !sp.enabled;
             yield return ws;
         }
+        if (!sp.enabled) sp.enabled = true;
     }
 
     private void UpdateScoreBar()

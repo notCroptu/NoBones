@@ -31,6 +31,7 @@ public class Movement : MonoBehaviour
     
     void Start()
     {
+        jumpAngle = jumpAngle * Mathf.Deg2Rad;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         float minHoriz;
         horizontal = maxjumpForce / Mathf.Tan(jumpAngle);
@@ -40,7 +41,6 @@ public class Movement : MonoBehaviour
         differenceJumpForce = maxjumpForce - minjumpForce;
         maxjumpForce -= differenceJumpForce;
         rb = GetComponent<Rigidbody2D>();
-        jumpAngle = jumpAngle * Mathf.Deg2Rad;
     }
     void Update()
     {
