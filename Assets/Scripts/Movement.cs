@@ -25,9 +25,13 @@ public class Movement : MonoBehaviour
     private int jumpNum1 = 0;
     private int jumpNum2 = 0;
     private GameManager _gameManager;
+
+    private float _riseMultiplier = 40f;
+    private float _fallMultiplier = 60f;
     
     void Start()
     {
+        jumpAngle = jumpAngle * Mathf.Deg2Rad;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         float minHoriz;
         horizontal = maxjumpForce / Mathf.Tan(jumpAngle);
@@ -37,7 +41,6 @@ public class Movement : MonoBehaviour
         differenceJumpForce = maxjumpForce - minjumpForce;
         maxjumpForce -= differenceJumpForce;
         rb = GetComponent<Rigidbody2D>();
-        jumpAngle = jumpAngle * Mathf.Deg2Rad;
     }
     void Update()
     {
@@ -72,6 +75,16 @@ public class Movement : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.RightArrow))
                 jump2 = true;
         }
+
+        /*
+        if (( rb.velocity.x < 0 ) && (transform.right.x > 0) )
+        {
+            transform.rotation = Quaternion.Euler( 0, 180, 0);
+        }
+        else if (( rb.velocity.x > 0 ) && (transform.right.x < 0) )
+        {
+            transform.rotation = Quaternion.identity;
+        }*/
     }
     void FixedUpdate()
     {
@@ -106,6 +119,9 @@ public class Movement : MonoBehaviour
             //impulse = new Vector3(horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
+
+        if (rb.velocity.y > 0) rb.gravityScale = _riseMultiplier;
+        else if (rb.velocity.y < 0) rb.gravityScale = _fallMultiplier;
 
         rb.velocity = currentVelocity;
     }

@@ -11,9 +11,12 @@ public class BoneManager : MonoBehaviour
     private Animator _animator;
     private bool _touched = false;
     public bool IsTouched() => _touched;
+    private GameManager _gameManager;
     
     void Start()
     {
+        _gameManager = GameObject.FindObjectOfType(typeof(GameManager)) as GameManager;
+        
         _animator = transform.Find("Sprite").GetComponent<Animator>();
         if (Random.Range(0, 5) == 0)
         {
@@ -36,9 +39,24 @@ public class BoneManager : MonoBehaviour
         if (_corrupted)
         {
             // DO BAD  STUFF, MAUAHAHHAHAHAH
+            _gameManager.TakeDamage();
         }
         _animator.SetBool("collected", true);
         StartCoroutine(DestroyBoneCauseIcan());
+    }
+    private void OnTriggerEnter2D()
+    {
+        if (_corrupted)
+        {
+
+        }
+    }
+    private void OnTriggerExit2D()
+    {
+        if (_corrupted)
+        {
+            
+        }
     }
     
     public IEnumerator DestroyBoneCauseIcan() {

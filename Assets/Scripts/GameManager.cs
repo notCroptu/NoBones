@@ -22,14 +22,14 @@ public class GameManager : MonoBehaviour
     private RectTransform _rightJumpBar;
     
 
-    [SerializeField] private VideoPlayer vp;
-    [SerializeField] private SoundScript ss;
+    [SerializeField] private GameObject videoPlayer;
+    [SerializeField] private GameObject videoCanvas;
 
 
     [SerializeField] private GameObject player;
     private Scene currentScene;
     [SerializeField] private Sounds sounds;
-    [SerializeField] private SoundScript audioPlayer;
+    private SoundScript audioPlayer;
     
     void Start()
     {
@@ -59,6 +59,11 @@ public class GameManager : MonoBehaviour
         sounds = GetComponent<Sounds>();
     }
 
+    void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.K))
+        //    StartCoroutine(GameOver());
+    }
     public void UpdateLeftJumpBar(float force = 0f)
     {
         float perc = (force / _maxJumpForceTime);
@@ -76,28 +81,28 @@ public class GameManager : MonoBehaviour
     {
         _lives--;
 
-        Blink();
+        StartCoroutine(Blink());
+        audioPlayer.PlayAudio(sounds.Die);
         
         if (_lives == 1) StartCoroutine(VaisApanhar());
-        else if (_lives == 0) StartCoroutine(DesligarANet());
+        else if (_lives == 2) StartCoroutine(DesligarANet());
 
         UpdateHealthPanel();
         UpdateScoreText();
 
-        if (_lives == 2) StartCoroutine(GameOver());
+        if (_lives == 0) StartCoroutine(GameOver());
     }
     private IEnumerator Blink()
     {
-        WaitForSeconds ws = new WaitForSeconds(0.5f);
+        WaitForSeconds ws = new WaitForSeconds(0.2f);
         SpriteRenderer sp = player.GetComponent<SpriteRenderer>();
 
-        for (int i = 0; i <= 3; i++ )
+        for (int i = 0; i <= 6; i++ )
         {
-            sp.enabled = false;
-            yield return ws;
-            sp.enabled = true;
+            sp.enabled = !sp.enabled;
             yield return ws;
         }
+        if (!sp.enabled) sp.enabled = true;
     }
 
     private void UpdateScoreBar()
@@ -138,16 +143,36 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOver()
     {
-        audioPlayer.PlayAudio(sounds.Die);
+        Debug.Log("CogWheel");
 
-        vp.gameObject.SetActive(true);
+        videoPlayer.SetActive(true);
+        videoCanvas.SetActive(true);
+
+        VideoPlayer vp = videoPlayer.GetComponent<VideoPlayer>();
+        RawImage ri = videoCanvas.GetComponentInChildren<RawImage>();
+        ri.color = new Color();
+
         vp.Stop();
+        vp.Prepare();
+
+        yield return new WaitUntil(() => vp.isPrepared);
+
         vp.Play();
+
+        Debug.Log($"vp is playing, {vp.isPlaying}");
+
+        float timer = 0f;
+
         while (vp.isPlaying)
         {
+            timer += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(0F, 1f, timer / 0.7f);
+            ri.color = new Color(ri.color.r, ri.color.b, ri.color.a, newAlpha);
             yield return null;
         }
-        vp.gameObject.SetActive(false);
+
+        videoPlayer.SetActive(false);
+        videoCanvas.SetActive(false);
         SceneManager.LoadScene(currentScene.name);
     }
     public IEnumerator DesligarANet()
