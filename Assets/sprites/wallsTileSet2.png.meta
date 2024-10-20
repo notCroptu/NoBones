@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7fb8afbdf92946c4e985e59a6968bb9b
+guid: 9b2dd244894416e4f998b7bb45bb7930
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wallsTileSet_0
+      name: wallsTileSet2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -122,20 +122,22 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -2, y: -16}
-        - {x: -2, y: 7}
-        - {x: 16, y: 7}
-        - {x: 16, y: -16}
+      - - {x: 2, y: -16}
+        - {x: -16, y: -16}
+        - {x: -16, y: 16}
+        - {x: 16, y: 16}
+        - {x: 16, y: -0.95947266}
+        - {x: 2, y: -1}
       tessellationDetail: 0
       bones: []
-      spriteID: 8fcc860856151cf468b08a39908b9d81
-      internalID: -131402790
+      spriteID: acf340a0e0daff543b7fef8c595e91f0
+      internalID: -1441482570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallsTileSet_1
+      name: wallsTileSet2_1
       rect:
         serializedVersion: 2
         x: 32
@@ -147,20 +149,20 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -16, y: -16}
-        - {x: -16, y: 7}
-        - {x: 16, y: 7}
-        - {x: 16, y: -16}
+      - - {x: -16, y: -1}
+        - {x: -16, y: 16}
+        - {x: 16, y: 16}
+        - {x: 16, y: -1}
       tessellationDetail: 0
       bones: []
-      spriteID: 35329a4f1238ce94db273d1eac5f639c
-      internalID: -2135721587
+      spriteID: 7aa4871a0968d884d96c33be0698abb8
+      internalID: 655269034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallsTileSet_2
+      name: wallsTileSet2_2
       rect:
         serializedVersion: 2
         x: 64
@@ -172,73 +174,25 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -16, y: -16}
-        - {x: -16, y: 7}
-        - {x: 2, y: 7}
-        - {x: 2, y: -16}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 85cd0a84cdf72d64db52716bc0b818db
-      internalID: 337099353
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wallsTileSet_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -2, y: -16}
-        - {x: -2, y: 16}
-        - {x: 16, y: 16}
-        - {x: 16, y: -16}
-      tessellationDetail: 0
-      bones: []
-      spriteID: f68533cf4d7d1d54abb4a69f794ac1d5
-      internalID: 1157345258
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wallsTileSet_4
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -16, y: -16}
+      - - {x: -3.8072205, y: -16}
+        - {x: -4, y: -1}
+        - {x: -16, y: -0.9595032}
         - {x: -16, y: 16}
         - {x: 16, y: 16}
         - {x: 16, y: -16}
       tessellationDetail: 0
       bones: []
-      spriteID: eb437dcc7eb68de42bca1a7adf98c2f5
-      internalID: -1616620530
+      spriteID: 918d8a9ff4cea5145bcca58fa1082954
+      internalID: -1833134127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallsTileSet_5
+      name: wallsTileSet2_3
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 32
         width: 32
         height: 32
@@ -253,14 +207,39 @@ TextureImporter:
         - {x: 2, y: -16}
       tessellationDetail: 0
       bones: []
-      spriteID: 383428a572a27ee4da5c14f68996ed2d
-      internalID: 2012581073
+      spriteID: bee9200277c677b43add695ef44718ae
+      internalID: 707500560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallsTileSet_6
+      name: wallsTileSet2_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -4, y: -16}
+        - {x: -4, y: 16}
+        - {x: 16, y: 16}
+        - {x: 16, y: -16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b78d1a55f88a054a902761ee89dadfc
+      internalID: 190154754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wallsTileSet2_5
       rect:
         serializedVersion: 2
         x: 0
@@ -272,20 +251,22 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -2, y: -9}
-        - {x: -2, y: 16}
-        - {x: 16, y: 16}
-        - {x: 16, y: -9}
+      - - {x: -16, y: -16}
+        - {x: -16, y: 16}
+        - {x: 2, y: 16}
+        - {x: 2, y: 4}
+        - {x: 16, y: 3.8072395}
+        - {x: 16, y: -16}
       tessellationDetail: 0
       bones: []
-      spriteID: a8cfa70f12c5a0748ba4091ba7742335
-      internalID: -550392311
+      spriteID: a72104db31ea0ed45bd9b57b3c13e26b
+      internalID: -515330693
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallsTileSet_7
+      name: wallsTileSet2_6
       rect:
         serializedVersion: 2
         x: 32
@@ -297,20 +278,20 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -16, y: -9}
-        - {x: -16, y: 16}
-        - {x: 16, y: 16}
-        - {x: 16, y: -9}
+      - - {x: -16, y: -16}
+        - {x: -16, y: 4}
+        - {x: 16, y: 4}
+        - {x: 16, y: -16}
       tessellationDetail: 0
       bones: []
-      spriteID: c57f21ef4cb7b9e448d4a721f3fb6d07
-      internalID: 1852515683
+      spriteID: e5367c1864bed1144bebddb5560e0dd0
+      internalID: -1439533119
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wallsTileSet_8
+      name: wallsTileSet2_7
       rect:
         serializedVersion: 2
         x: 64
@@ -322,14 +303,16 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -16, y: -9}
-        - {x: -16, y: 16}
-        - {x: 2, y: 16}
-        - {x: 2, y: -9}
+      - - {x: -16, y: -16}
+        - {x: -16, y: 3.8072205}
+        - {x: -4, y: 4}
+        - {x: -3.8072357, y: 16}
+        - {x: 16, y: 16}
+        - {x: 16, y: -16}
       tessellationDetail: 0
       bones: []
-      spriteID: 0f270463c5264674c95d0601de1fb92a
-      internalID: -241051507
+      spriteID: 84f4a73a703e39e40b0bf1ddbba4a5a9
+      internalID: 824785292
       vertices: []
       indices: 
       edges: []
@@ -345,15 +328,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wallsTileSet_0: -131402790
-      wallsTileSet_1: -2135721587
-      wallsTileSet_2: 337099353
-      wallsTileSet_3: 1157345258
-      wallsTileSet_4: -1616620530
-      wallsTileSet_5: 2012581073
-      wallsTileSet_6: -550392311
-      wallsTileSet_7: 1852515683
-      wallsTileSet_8: -241051507
+      wallsTileSet2_0: -1441482570
+      wallsTileSet2_1: 655269034
+      wallsTileSet2_2: -1833134127
+      wallsTileSet2_3: 707500560
+      wallsTileSet2_4: 190154754
+      wallsTileSet2_5: -515330693
+      wallsTileSet2_6: -1439533119
+      wallsTileSet2_7: 824785292
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
