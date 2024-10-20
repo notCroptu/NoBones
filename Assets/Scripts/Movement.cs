@@ -42,6 +42,11 @@ public class Movement : MonoBehaviour
         maxjumpForce -= differenceJumpForce;
         rb = GetComponent<Rigidbody2D>();
     }
+    private IEnumerator JumpAnimator(float time)
+    {
+        yield return null;
+
+    }
     void Update()
     {
         UpdateGroundState();
@@ -98,6 +103,7 @@ public class Movement : MonoBehaviour
             delta1 = Mathf.Clamp(delta1, 0f, maxHoldTime);
             currentVelocity.x = -((horizontal * delta1 / maxHoldTime) + differenceHorizontal);
             currentVelocity.y = (maxjumpForce * delta1 / maxHoldTime) + differenceJumpForce;
+            StartCoroutine(JumpAnimator(delta1));
             delta1 = 0f;
             jump1 = false;
             rb.AddTorque(-Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
@@ -112,6 +118,7 @@ public class Movement : MonoBehaviour
             delta2 = Mathf.Clamp(delta2, 0f, maxHoldTime);
             currentVelocity.x = (horizontal * delta2 / maxHoldTime) + differenceHorizontal;
             currentVelocity.y = (maxjumpForce * delta2 / maxHoldTime) + differenceJumpForce;
+            StartCoroutine(JumpAnimator(delta2));
             delta2 = 0f;
             jump2 = false;
             rb.AddTorque(Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
