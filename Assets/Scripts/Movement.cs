@@ -28,9 +28,11 @@ public class Movement : MonoBehaviour
 
     private float _riseMultiplier = 40f;
     private float _fallMultiplier = 60f;
+    [SerializeField] Sprite[] sprites = new Sprite[8];
     
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
         jumpAngle = jumpAngle * Mathf.Deg2Rad;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         float minHoriz;
@@ -42,10 +44,26 @@ public class Movement : MonoBehaviour
         maxjumpForce -= differenceJumpForce;
         rb = GetComponent<Rigidbody2D>();
     }
-    private IEnumerator JumpAnimator(float time)
+    private IEnumerator JumpAnimator(float yv)
     {
-        yield return null;
+        float timer = 0f;
+        float time = (yv - 0f)/rb.gravityScale;
 
+        float onesprite = time / sprites.Length;
+
+        int counter = 0;
+
+        while (timer < time)
+        {
+            if (((float) (onesprite * counter) <= timer) &&
+                (sr.sprite != sprites[counter]))
+            {
+                sr.sprite = sprites[counter];
+            }
+            timer += Time.deltaTime;
+            counter ++;
+            yield return null;
+        }
     }
     void Update()
     {
@@ -107,7 +125,7 @@ public class Movement : MonoBehaviour
             delta1 = 0f;
             jump1 = false;
             rb.AddTorque(-Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
-            _gameManager.UpdateLeftJumpBar(delta2);
+            _gameManager.UpdateLeftJumpBar(currentVelocity.y);
             //impulse = new Vector3(-horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
@@ -122,7 +140,7 @@ public class Movement : MonoBehaviour
             delta2 = 0f;
             jump2 = false;
             rb.AddTorque(Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
-            _gameManager.UpdateRightJumpBar(delta2);
+            _gameManager.UpdateRightJumpBar(currentVelocity.y);
             //impulse = new Vector3(horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
