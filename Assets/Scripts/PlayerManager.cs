@@ -18,7 +18,9 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.CompareTag("Detect"))
         {
-            BoneManager boneManager2 = other.transform.parent.Find("BoneSpine").gameObject.GetComponentInParent<BoneManager>();
+            Transform boneSpine = other.transform.parent.Find("BoneSpine");
+            if (boneSpine == null) return;
+            BoneManager boneManager2 = boneSpine.gameObject.GetComponentInParent<BoneManager>();
             if (!boneManager2.HasBeenFound())
             {
                 boneManager2.Detected();

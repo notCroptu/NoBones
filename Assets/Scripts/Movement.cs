@@ -46,23 +46,13 @@ public class Movement : MonoBehaviour
     }
     private IEnumerator JumpAnimator(float yv)
     {
-        float timer = 0f;
-        float time = (yv - 0f)/rb.gravityScale;
-
-        float onesprite = time / sprites.Length;
-
         int counter = 0;
-
-        while (timer < time)
+        while (true)
         {
-            if (((float) (onesprite * counter) <= timer) &&
-                (sr.sprite != sprites[counter]))
-            {
-                sr.sprite = sprites[counter];
-            }
-            timer += Time.deltaTime;
-            counter ++;
-            yield return null;
+            sr.sprite = sprites[counter];
+            counter++;
+            if (counter >= sprites.Length) break;
+            yield return new WaitForSeconds(0.1f);
         }
     }
     void Update()

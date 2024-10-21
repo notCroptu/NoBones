@@ -137,6 +137,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   jumpNum: 3
+  sprites:
+  - {fileID: -1971409697, guid: 3818131196d274b48be73172f013dd5d, type: 3}
+  - {fileID: -589911155, guid: 3818131196d274b48be73172f013dd5d, type: 3}
+  - {fileID: 1028623455, guid: 3818131196d274b48be73172f013dd5d, type: 3}
+  - {fileID: 998285042, guid: 3818131196d274b48be73172f013dd5d, type: 3}
+  - {fileID: 1609259307, guid: 3818131196d274b48be73172f013dd5d, type: 3}
+  - {fileID: 1427194933, guid: 3818131196d274b48be73172f013dd5d, type: 3}
+  - {fileID: -1769363477, guid: 3818131196d274b48be73172f013dd5d, type: 3}
+  - {fileID: 21300000, guid: ba24a7e3dfc48ef4297b418a157c787a, type: 3}
 --- !u!60 &8900940959562418336
 PolygonCollider2D:
   m_ObjectHideFlags: 0

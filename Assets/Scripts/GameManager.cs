@@ -72,15 +72,18 @@ public class GameManager : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.K))
         //    StartCoroutine(GameOver());
     }
+
     public void UpdateLeftJumpBar(float force = 0f)
     {
-        float perc = (force / _maxJumpForceTime);
+        float perc = Mathf.Round(force / _maxJumpForceTime);
+        //if (perc > 1) perc = 1f;
         _leftJumpBar.localScale = new Vector3(1, perc, 1);
         _leftJumpBar.transform.parent.gameObject.SetActive(force > 0.0f);
     }
     public void UpdateRightJumpBar(float force = 0f)
     {
-        float perc = (force / _maxJumpForceTime);
+        float perc = Mathf.Round(force / _maxJumpForceTime);
+        //if (perc > 1) perc = 1f;
         _rightJumpBar.localScale = new Vector3(1, perc, 1);
         _rightJumpBar.transform.parent.gameObject.SetActive(force > 0.0f);
     }

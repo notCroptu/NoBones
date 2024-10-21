@@ -67,7 +67,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -1
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -121,11 +121,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: dc0cf29d7a5fc8444a6db81ca0af955b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 409600784619019360}
   - component: {fileID: 4959840593626439516}
   - component: {fileID: 3023154046370675924}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Untitled_Artwork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ Transform:
   m_GameObject: {fileID: 3779743583772128375}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -278,9 +278,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 74869561
+  m_SortingLayer: -2
+  m_SortingOrder: -4
   m_Sprite: {fileID: 21300000, guid: 8010f530f5332c04f9759ee383e5e5a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 4959840593626439516}
-  speed: 0.5
+  speed: 0.03
 --- !u!1 &8634040409590380313
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4158114491518166200}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
