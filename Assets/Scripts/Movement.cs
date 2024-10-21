@@ -29,6 +29,9 @@ public class Movement : MonoBehaviour
     private float _riseMultiplier = 40f;
     private float _fallMultiplier = 60f;
     [SerializeField] Sprite[] sprites = new Sprite[8];
+    [SerializeField] Sprite idleSprite;
+    private bool jumping = false;
+    private bool changingSprite = false;
     
     void Start()
     {
@@ -46,6 +49,7 @@ public class Movement : MonoBehaviour
     }
     private IEnumerator JumpAnimator(float yv)
     {
+        jumping = true;
         int counter = 0;
         while (true)
         {
@@ -54,6 +58,7 @@ public class Movement : MonoBehaviour
             if (counter >= sprites.Length) break;
             yield return new WaitForSeconds(0.1f);
         }
+        jumping = false;
     }
     void Update()
     {
@@ -98,6 +103,20 @@ public class Movement : MonoBehaviour
         {
             transform.rotation = Quaternion.identity;
         }*/
+
+        if (!changingSprite)
+        {
+            if (rb.angularVelocity * 2 <= 1f) WaitToChangeSprite(idleSprite, 1f) ;
+            else WaitToChangeSprite(sprites[sprites.Length -1], 1f);
+        }
+    }
+
+    private IEnumerator WaitToChangeSprite(Sprite spr, float seconds)
+    {
+        changingSprite = true;
+        yield return new WaitForSeconds(seconds);
+        if (!jumping) sr.sprite = spr;
+        changingSprite = false;
     }
     void FixedUpdate()
     {
