@@ -6,8 +6,8 @@ using Random = UnityEngine.Random;
 
 public class BoneManager : MonoBehaviour
 {
-
     private bool _corrupted = false;
+    public bool Corrupted() => _corrupted;
     [SerializeField] private Animator _animator;
     private bool _touched = false;
     public bool IsTouched() => _touched;
@@ -27,7 +27,7 @@ public class BoneManager : MonoBehaviour
         _spriteCorruptedRenderer = _spriteRenderer.transform.Find("CorruptedObj").GetComponent<SpriteRenderer>();
         _spriteCorruptedRenderer.enabled = false;
         
-        if (Random.Range(0, 6) == 0) _corrupted = true;
+        if (Random.Range(0, 1) == 0) _corrupted = true;
     }
 
     public void Touched()
@@ -36,6 +36,7 @@ public class BoneManager : MonoBehaviour
         _touched = true;
         if (_corrupted)
         {
+            Debug.Log("Take damage");
             // DO BAD  STUFF, MAUAHAHHAHAHAH
             _gameManager.TakeDamage();
         }

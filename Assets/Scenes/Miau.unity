@@ -2088,6 +2088,8 @@ MonoBehaviour:
   <Die>k__BackingField: {fileID: 8300000, guid: 5b0d76dae2b554944a2ae096dac1bdba, type: 3}
   <Net>k__BackingField: {fileID: 8300000, guid: 1045341f918f99a4ea9f99c147f7bfac, type: 3}
   <Vassoura>k__BackingField: {fileID: 8300000, guid: df4a25e89141ecc4a83cbe302be3bc98, type: 3}
+  <GetBone>k__BackingField: {fileID: 8300000, guid: 3a8e16f16f53cf84eabdf6b598ff06ab, type: 3}
+  <Jump>k__BackingField: {fileID: 8300000, guid: 8be4582d57895a64c8d62c8a152ce6f7, type: 3}
 --- !u!1 &1540563364
 GameObject:
   m_ObjectHideFlags: 0

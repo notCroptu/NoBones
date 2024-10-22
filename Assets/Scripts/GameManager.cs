@@ -142,6 +142,7 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int score)
     {
+        audioPlayer.PlayAudio(sounds.GetBone);
         _score += score;
         UpdateScoreText();
         UpdateScoreBar();;

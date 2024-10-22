@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    
     private GameManager _gameManager;
     [SerializeField] private GameObject effectCollect;
     
@@ -31,7 +30,8 @@ public class PlayerManager : MonoBehaviour
         BoneManager boneManager = other.gameObject.GetComponentInParent<BoneManager>();
         if (boneManager.IsTouched()) return;
         boneManager.Touched();
-        _gameManager.AddScore();
+        if (!boneManager.Corrupted())
+            _gameManager.AddScore();
         Instantiate(effectCollect, other.transform.position, other.transform.rotation);
     }
 }

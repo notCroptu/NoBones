@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private Sounds sounds;
+    private SoundScript soundScript;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     [SerializeField] private float minjumpForce;
@@ -35,6 +37,8 @@ public class Movement : MonoBehaviour
     
     void Start()
     {
+        sounds = GetComponent<Sounds>();
+        soundScript = GetComponent<SoundScript>();
         sr = GetComponent<SpriteRenderer>();
         jumpAngle = jumpAngle * Mathf.Deg2Rad;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -49,6 +53,7 @@ public class Movement : MonoBehaviour
     }
     private IEnumerator JumpAnimator(float yv)
     {
+        soundScript.PlayAudio(sounds.Jump);
         jumping = true;
         int counter = 0;
         while (true)
