@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
 
     public void ClickPlayButton()
     {
-        SceneManager.LoadScene("Miau tests");
+        SceneManager.LoadScene("Miau");
     }
 
     public void ClickQuitButton()

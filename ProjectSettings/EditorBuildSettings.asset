@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 51e223ca4b1c5f74e9b30e532528946e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Miau.unity
     guid: ee9d8d498b3afe043a0cf6601793ef8b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Miau tests.unity
     guid: 0f28fc68a6e845342b72a24475524f15
   m_configObjects: {}
