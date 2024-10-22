@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private Sprite _heartSprite2;
     [SerializeField] private GameObject boneObj;
     private RectTransform _scorePercBar;
-    private float _maxJumpForceTime = 1.0f;
+    public float _maxJumpForceTime {get; set;} = 0.6f;
     private RectTransform _leftJumpBar;
     private RectTransform _rightJumpBar;
     
@@ -75,15 +75,14 @@ public class GameManager : MonoBehaviour
 
     public void UpdateLeftJumpBar(float force = 0f)
     {
-        float perc = Mathf.Round(force / _maxJumpForceTime);
-        //if (perc > 1) perc = 1f;
+        float perc = Mathf.Clamp01(force / _maxJumpForceTime);
         _leftJumpBar.localScale = new Vector3(1, perc, 1);
         _leftJumpBar.transform.parent.gameObject.SetActive(force > 0.0f);
     }
+
     public void UpdateRightJumpBar(float force = 0f)
     {
-        float perc = Mathf.Round(force / _maxJumpForceTime);
-        //if (perc > 1) perc = 1f;
+        float perc = Mathf.Clamp01(force / _maxJumpForceTime);
         _rightJumpBar.localScale = new Vector3(1, perc, 1);
         _rightJumpBar.transform.parent.gameObject.SetActive(force > 0.0f);
     }

@@ -18,6 +18,7 @@ public class BoneManager : MonoBehaviour
     private bool _found = false;
     public bool HasBeenFound() => _found;
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] private int oneInNumberWillBeCorrupted = 6;
     
     void Start()
     {
@@ -27,7 +28,7 @@ public class BoneManager : MonoBehaviour
         _spriteCorruptedRenderer = _spriteRenderer.transform.Find("CorruptedObj").GetComponent<SpriteRenderer>();
         _spriteCorruptedRenderer.enabled = false;
         
-        if (Random.Range(0, 1) == 0) _corrupted = true;
+        if (Random.Range(0, oneInNumberWillBeCorrupted) == 0) _corrupted = true;
     }
 
     public void Touched()

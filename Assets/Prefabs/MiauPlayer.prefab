@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minjumpForce: 200
   maxjumpForce: 400
-  maxHoldTime: 1
+  maxHoldTime: 0.6
   jumpAngle: 75
   groundCheckCollider: {fileID: 6749267016607164360}
   groundLayers:

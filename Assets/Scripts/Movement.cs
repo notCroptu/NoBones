@@ -12,8 +12,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float maxjumpForce;
     private float differenceJumpForce;
     private float differenceHorizontal;
-    //how much time it takes to reach the maximum jumpforce
-    [SerializeField] private float maxHoldTime = 1f;
+    [SerializeField] private float maxHoldTime = 0.5f;
     [SerializeField] private float jumpAngle = 30f;
     [SerializeField] private CapsuleCollider2D groundCheckCollider;
     [SerializeField] private LayerMask groundLayers;
@@ -50,6 +49,7 @@ public class Movement : MonoBehaviour
         differenceJumpForce = maxjumpForce - minjumpForce;
         maxjumpForce -= differenceJumpForce;
         rb = GetComponent<Rigidbody2D>();
+        _gameManager._maxJumpForceTime = maxHoldTime;
     }
     private IEnumerator JumpAnimator(float yv)
     {
@@ -139,7 +139,7 @@ public class Movement : MonoBehaviour
             delta1 = 0f;
             jump1 = false;
             rb.AddTorque(-Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
-            _gameManager.UpdateLeftJumpBar(currentVelocity.y);
+            _gameManager.UpdateLeftJumpBar();
             //impulse = new Vector3(-horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
@@ -154,7 +154,8 @@ public class Movement : MonoBehaviour
             delta2 = 0f;
             jump2 = false;
             rb.AddTorque(Random.Range(jumpAngle, 360f), ForceMode2D.Impulse);
-            _gameManager.UpdateRightJumpBar(currentVelocity.y);
+            //_gameManager.UpdateRightJumpBar(currentVelocity.y);
+            _gameManager.UpdateRightJumpBar();
             //impulse = new Vector3(horizontal, jumpForce, 0f);
             //rb.AddForce(impulse, ForceMode2D.Impulse);
         }
