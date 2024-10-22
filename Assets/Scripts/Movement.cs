@@ -111,8 +111,8 @@ public class Movement : MonoBehaviour
 
         if (!changingSprite)
         {
-            if (rb.angularVelocity * 2 <= 1f) WaitToChangeSprite(idleSprite, 1f) ;
-            else WaitToChangeSprite(sprites[sprites.Length -1], 1f);
+            if (rb.angularVelocity * Mathf.Sign(rb.angularVelocity) <= 9f) StartCoroutine(WaitToChangeSprite(idleSprite, 1f));
+            else StartCoroutine(WaitToChangeSprite(sprites[sprites.Length -1], 1f));
         }
     }
 
