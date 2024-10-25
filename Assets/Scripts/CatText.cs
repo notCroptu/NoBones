@@ -12,7 +12,7 @@ public class CatText : MonoBehaviour
     void Start()
     {
         tmp = transform.Find("Text").GetComponent<TMP_Text>();
-        StartCoroutine(ChangeTextCat());
+        //StartCoroutine(ChangeTextCat());
     }
 
     private IEnumerator ChangeTextCat()
