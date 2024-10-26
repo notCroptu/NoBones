@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpritesChangerManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class SpritesChangerManager : MonoBehaviour
 
     void Start()
     {
-        _spriteRenderer = transform.Find("Square").GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         StartCoroutine(ChangeSprite());
     }
 

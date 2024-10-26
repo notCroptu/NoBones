@@ -7,6 +7,7 @@ TagManager:
   - Bone
   - PickUp
   - Detect
+  - Collectable
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Important;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     public float _maxJumpForceTime {get; set;} = 0.6f;
     private RectTransform _leftJumpBar;
     private RectTransform _rightJumpBar;
+    private Data _data;
+    public Data GetData() => _data;
     
 
     [SerializeField] private GameObject videoPlayer;
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        _data = new Data();
         _heartSprite = Resources.Load<Sprite>("HeartUI");
         _heartSprite2 = Resources.Load<Sprite>("NoHeartUI");
         _tmpScore = canvas.transform.Find("ScoreText").GetComponent<TMP_Text>();
