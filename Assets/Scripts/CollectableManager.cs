@@ -20,6 +20,7 @@ public class CollectableManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         _gameManager.GetData().AddSkull();
+        _gameManager.UpdateCollectablesMenu();
         Debug.Log("collected skull");
         Debug.Log($"Skulls: {_gameManager.GetData().GetSkulls()}");
     }

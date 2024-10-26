@@ -139,7 +139,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 1024
-  jumpNum: 3
+  jumpNum: 1
   sprites:
   - {fileID: -1971409697, guid: 3818131196d274b48be73172f013dd5d, type: 3}
   - {fileID: -589911155, guid: 3818131196d274b48be73172f013dd5d, type: 3}

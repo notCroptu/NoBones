@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
     private float delta2 = 0f;
     private bool jump1 = false;
     private bool jump2 = false;
-    [SerializeField] private int jumpNum = 3;
+    [SerializeField] private int jumpNum = 1;
     private int jumpNum1 = 0;
     private int jumpNum2 = 0;
     private GameManager _gameManager;

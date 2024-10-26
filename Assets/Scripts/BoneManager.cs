@@ -12,7 +12,6 @@ public class BoneManager : MonoBehaviour
     private bool _touched = false;
     public bool IsTouched() => _touched;
     private GameManager _gameManager;
-    private bool inRange = false;
     private SpriteRenderer _spriteRenderer;
     private SpriteRenderer _spriteCorruptedRenderer;
     private bool _found = false;

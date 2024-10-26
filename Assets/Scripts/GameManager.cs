@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using Important;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -33,6 +34,17 @@ public class GameManager : MonoBehaviour
     private Scene currentScene;
     [SerializeField] private Sounds sounds;
     private SoundScript audioPlayer;
+
+    private GameObject _bonesMenu;
+
+    [SerializeField] private GameObject collectableSkulls;
+    private int _collectableSkullsAmount;
+    [SerializeField] private GameObject collectableBones;
+    private int _collectableBonesAmount;
+    [SerializeField] private GameObject collectableFishes;
+    private int _collectableFishesAmount;
+    [SerializeField] private GameObject collectableChests;
+    private int _collectableChestAmount;
     
     void Start()
     {
@@ -44,6 +56,20 @@ public class GameManager : MonoBehaviour
         _scorePercBar.localScale = new Vector3(1, 1, 1);
         _leftJumpBar = canvas.transform.Find("LeftJumpForce").Find("bar").GetComponent<RectTransform>();
         _rightJumpBar = canvas.transform.Find("RightJumpForce").Find("bar").GetComponent<RectTransform>();
+        _bonesMenu = canvas.transform.Find("BonesMenu").gameObject;
+        _bonesMenu.SetActive(false);
+        canvas.transform.Find("BonesButton").Find("Text").gameObject.SetActive(false);
+        // LEVEL HOVER
+        Button lvlHover = canvas.transform.Find("BonesButton").GetComponent<Button>();
+        AddEventTrigger(lvlHover.gameObject, EventTriggerType.PointerEnter, () => OnButtonHover(lvlHover));
+        AddEventTrigger(lvlHover.gameObject, EventTriggerType.PointerExit, () => OnButtonExitHover(lvlHover));
+
+        _collectableSkullsAmount = collectableSkulls.transform.childCount;
+        _collectableBonesAmount = collectableBones.transform.childCount;
+        _collectableFishesAmount = collectableFishes.transform.childCount;
+        _collectableChestAmount = collectableChests.transform.childCount;
+        UpdateCollectablesMenu();
+        
         UpdateHealthPanel();
         UpdateScoreText();
         UpdateScoreBar();
@@ -71,12 +97,23 @@ public class GameManager : MonoBehaviour
         sounds = GetComponent<Sounds>();
     }
 
-    void Update()
+    public void UpdateCollectablesMenu()
     {
-        //if (Input.GetKeyDown(KeyCode.K))
-        //    StartCoroutine(GameOver());
+        TMP_Text tmp = _bonesMenu.transform.Find("Collectable1").Find("TextAmount").GetComponent<TMP_Text>();
+        tmp.text = $"{GetData().GetSkulls()} <color=#9c9c9c>/ {_collectableSkullsAmount}";
+        TMP_Text tmp2 = _bonesMenu.transform.Find("Collectable2").Find("TextAmount").GetComponent<TMP_Text>();
+        tmp2.text = $"{GetData().GetBones()} <color=#9c9c9c>/ {_collectableBonesAmount}";
+        TMP_Text tmp3 = _bonesMenu.transform.Find("Collectable3").Find("TextAmount").GetComponent<TMP_Text>();
+        tmp3.text = $"{GetData().GetFishes()} <color=#9c9c9c>/ {_collectableFishesAmount}";
+        TMP_Text tmp4 = _bonesMenu.transform.Find("Collectable4").Find("TextAmount").GetComponent<TMP_Text>();
+        tmp4.text = $"{GetData().GetChests()} <color=#9c9c9c>/ {_collectableChestAmount}";
     }
 
+    public void ClickBonesMenu()
+    {
+        _bonesMenu.SetActive(!_bonesMenu.activeSelf);
+    }
+    
     public void UpdateLeftJumpBar(float force = 0f)
     {
         float perc = Mathf.Clamp01(force / _maxJumpForceTime);
@@ -199,5 +236,30 @@ public class GameManager : MonoBehaviour
     {
         audioPlayer.PlayAudio(sounds.Vassoura);
         yield return null;
+    }
+    
+    private void OnButtonHover(Button button)
+    {
+        button.transform.Find("Text").gameObject.SetActive(true);
+    }
+
+    private void OnButtonExitHover(Button button)
+    {
+        button.transform.Find("Text").gameObject.SetActive(false);
+    }
+
+    private void AddEventTrigger(GameObject target, EventTriggerType eventType, UnityEngine.Events.UnityAction action)
+    {
+        EventTrigger trigger = target.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = target.AddComponent<EventTrigger>();
+        }
+
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = eventType;
+        entry.callback.AddListener((eventData) => { action(); });
+
+        trigger.triggers.Add(entry);
     }
 }
